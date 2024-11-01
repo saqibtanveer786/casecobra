@@ -102,3 +102,20 @@ model BillingAddress {
   phoneNumber String?
   orders      Order[]
 }
+
+model Design {
+  id          String @id @default(cuid())
+  previewImg  String 
+  mainImg     String
+  textElements  TextElement[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime  @updatedAt 
+}
+
+model TextElement {
+  id          String @id @default(cuid())
+  content     String
+  designId    String
+  design      Design @relation(fields: [designId], references: [id])
+}
