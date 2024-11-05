@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
+    "@hookform/resolvers": "^3.9.1",
     "@kinde-oss/kinde-auth-nextjs": "^2.2.4",
     "@prisma/client": "^5.13.0",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
@@ -27,14 +28,16 @@
     "@uploadthing/react": "^6.5.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "fabric": "^6.4.3",
     "framer-motion": "^11.1.7",
     "lucide-react": "^0.372.0",
-    "next": "15.0.1", 
+    "next": "15.0.1",
     "prisma": "^5.13.0",
     "react": "19.0.0-rc-69d4b800-20241021",
     "react-dom": "19.0.0-rc-69d4b800-20241021",
     "react-dom-confetti": "^0.2.0",
     "react-dropzone": "^14.2.3",
+    "react-hook-form": "^7.53.1",
     "react-rnd": "^10.4.10",
     "resend": "^3.2.0",
     "sharp": "^0.32.6",
@@ -46,6 +49,7 @@
     "zod": "^3.23.4"
   },
   "devDependencies": {
+    "@types/fabric": "^5.3.9",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
