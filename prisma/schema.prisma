@@ -51,20 +51,21 @@ model BillingAddress {
   orders      Order[]
 }
 
-model CustomizedDesign {
-  id          String @id @default(cuid())
-  image       String
-  order       Order[]
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime  @updatedAt 
-}
-
 model Design {
   id          String @id @default(cuid())
   previewImg  String 
   mainImg     String
   textElements  TextElement[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime  @updatedAt 
+}
+
+model CustomizedDesign {
+  id          String @id @default(cuid())
+  image       String
+  customizedTextElements  CustomizedTextElement[]
+  order       Order[]
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime  @updatedAt 
@@ -81,4 +82,17 @@ model TextElement {
   fontSize    Int
   designId    String
   design      Design @relation(fields: [designId], references: [id])
+}
+
+model CustomizedTextElement {
+  id          String @id @default(cuid())
+  title       String
+  content     String
+  top         Int
+  left        Int
+  fontFamily  String
+  fontColor   String
+  fontSize    Int
+  customizedDesignId  String
+  customizedDesign    CustomizedDesign @relation(fields: [customizedDesignId], references: [id])
 }
