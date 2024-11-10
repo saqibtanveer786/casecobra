@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { TextElement, textElements } from './dummyTextElements'
 import * as fabric from 'fabric';
 import { FabricImage } from 'fabric'; // Make sure to import FabricImage
+import { db } from '@/db'
 
 function DesignCustomizer() {
     const [textElementState, setTextElementState] = useState<TextElement[]>(textElements)
@@ -84,9 +85,21 @@ function DesignCustomizer() {
 
     const saveCustomization_Redirect = ()=> {
       // save the customizations
+      db.customizedDesign.create({
+          data: {
+            image: "img",
+            customizedTextElements: {
+              createMany: {
+                data: [
+                  ...textElementState
+                ]
+              }
+            },
+          }
+      })
 
       // redirect to preview page
-      router.push("/configure/preview")
+      // router.push(`/configure/preview/${}`)
     }
 
     return (
