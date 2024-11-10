@@ -1,18 +1,17 @@
 "use client"
 import LoginModal from '@/components/LoginModal'
-import Phone from '@/components/Phone'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Check } from 'lucide-react'
-import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import Confetti from 'react-dom-confetti'
+import { useRouter } from 'next/navigation'
 import { TextElement, textElements } from './dummyTextElements'
 import * as fabric from 'fabric';
 import { FabricImage } from 'fabric'; // Make sure to import FabricImage
 
 function DesignCustomizer() {
     const [textElementState, setTextElementState] = useState<TextElement[]>(textElements)
+    const router = useRouter();
     let canvas: fabric.Canvas;
+
     useEffect(()=> {
       const img = makeImgEle()
       const width = img.width
@@ -83,6 +82,13 @@ function DesignCustomizer() {
         link.click(); 
     }
 
+    const saveCustomization_Redirect = ()=> {
+      // save the customizations
+
+      // redirect to preview page
+      router.push("/configure/preview")
+    }
+
     return (
         <>
           <div className='flex flex-col items-center md:grid text-sm sm:grid-cols-12 sm:grid-rows-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-12'>
@@ -92,7 +98,7 @@ function DesignCustomizer() {
               <h3 className='text-3xl font-bold tracking-tight text-gray-900'>
                 Personalize Your Design
               </h3>
-                <Button onClick={exportImage}>Next</Button>
+                <Button onClick={saveCustomization_Redirect}>Next</Button>
               </div>
     
             <div className='sm:col-span-12 md:col-span-12 text-base border'>
