@@ -7,6 +7,7 @@ import { TextElement, textElements } from './dummyTextElements'
 import * as fabric from 'fabric';
 import { FabricImage } from 'fabric'; // Make sure to import FabricImage
 import { db } from '@/db'
+import { saveCostomization } from './action'
 
 function DesignCustomizer() {
     const [textElementState, setTextElementState] = useState<TextElement[]>(textElements)
@@ -83,23 +84,29 @@ function DesignCustomizer() {
         link.click(); 
     }
 
-    const saveCustomization_Redirect = ()=> {
+    const saveCustomization_Redirect = async ()=> {
       // save the customizations
-      db.customizedDesign.create({
-          data: {
-            image: "img",
-            customizedTextElements: {
-              createMany: {
-                data: [
-                  ...textElementState
-                ]
-              }
-            },
-          }
-      })
+
+      //get all the text element from the canvas
+      const allTextElements = canvas.getObjects("i-text").map(ele => {
+        //@ts-ignore
+        const { text, top, left, fontFamily, fontSize, fill } = ele
+        return {
+          title: text,
+          content: text,
+          top,
+          left,
+          fontFamily,
+          fontSize,
+          fontColor: fill
+        }
+      }
+      )
+      //@ts-ignore
+      const id = await saveCostomization({image: "img", allTextElements})
 
       // redirect to preview page
-      // router.push(`/configure/preview/${}`)
+      router.push(`/configure/preview?${id}`)
     }
 
     return (
