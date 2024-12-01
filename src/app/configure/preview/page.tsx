@@ -1,45 +1,38 @@
-import { db } from '@/db'
-import { notFound } from 'next/navigation'
-import DesignPreview from './DesignPreview'
-import CustomizedDesignPreview from './CustomizedDesignPreview'
+import { db } from "@/db";
+import { notFound } from "next/navigation";
+import CustomizedDesignPreview from "./CustomizedDesignPreview";
+import * as fabric from "fabric";
+import { textElements } from "../customize/dummyTextElements";
 
 interface PageProps {
   searchParams: {
-    [key: string]: string | string[] | undefined
-  }
+    [key: string]: string | string[] | undefined;
+  };
 }
 
 const Page = async ({ searchParams }: PageProps) => {
-  // const { id } = searchParams
-
-  // if (!id || typeof id !== 'string') {
-  //   return notFound()
+  // const { id } = await searchParams;
+  // if (!id || typeof id !== "string") {
+  //   console.log("not found");
+  //   return notFound();
   // }
 
-  // const configuration = await db.configuration.findUnique({
+  // const customizedDesign = await db.customizedDesign.findUnique({
   //   where: { id },
-  // })
+  //   select: {
+  //     image: true,
+  //     customizedTextElements: true,
+  //   },
+  // });
 
-  // if(!configuration) {
-  //   return notFound()
-  // }
+  // if (!customizedDesign) return notFound();
+  const customizedDesign = {
+    image: "/desdes.png",
+    customizedTextElements: textElements,
+  };
+  console.log(customizedDesign);
 
-  // return <DesignPreview configuration={configuration} />
-  // customized design id
-  const {id} = searchParams;
+  return <CustomizedDesignPreview customizedDesign={customizedDesign} />;
+};
 
-  if(!id || typeof id !== 'string'){
-    return notFound();
-  }
-
-  const customizedDesign = await db.customizedDesign.findUnique({
-    where: { id }
-  })
-
-  if(!customizedDesign) return notFound();
-  
-
-  return <CustomizedDesignPreview customizedDesign={customizedDesign}/>
-}
-
-export default Page
+export default Page;
